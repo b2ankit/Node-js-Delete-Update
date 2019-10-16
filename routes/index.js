@@ -20,7 +20,7 @@ router.get('/', function(req, res, next) {
   //execute object employee to fetch data
   employee.exec(function(err,data){
       if(err) throw err;   //throw err if occur
-        res.render('index', { title: 'Employee Records',records:data}); //render data for ejs page
+        res.render('index', { title: 'Employee Records',records:data, success:''}); //render data for ejs page
       
   });
   
@@ -45,7 +45,7 @@ router.post("/",function(req,res,next){
     if(err)  throw err;                             //if err is occure
     employee.exec(function(err,data){               //
       if(err) throw err;                            //throw err if occur
-        res.render('index', { title: 'Employee Records',records:data}); //render data for ejs page
+        res.render('index', { title: 'Employee Records',records:data,success:'Data Inserted successfully'}); //render data for ejs page
       
 
   });
@@ -66,7 +66,12 @@ router.get('/delete/:id', function(req, res, next) {
   //execute object employee to fetch data
   del.exec(function(err){
       if(err) throw err;   //throw err if occur
-        res.redirect("/"); //redirect to the base root
+        // res.redirect("/"); //redirect to the base root
+        employee.exec(function(err,data){
+          if(err) throw err;   //throw err if occur
+            res.render('index', { title: 'Employee Records',records:data, success:'Data Deleted Sucessfully'}); //render data for ejs page
+          
+      });
       
   });
   
@@ -105,7 +110,11 @@ router.post('/update/', function(req, res, next) {
 //execute object employee to fetch data
     update.exec(function(err,data){
     if(err) throw err;   //throw err if occur
-      res.redirect("/") 
+    employee.exec(function(err,data){
+      if(err) throw err;   //throw err if occur
+        res.render('index', { title: 'Employee Records',records:data, success:'Data Updated Sucessfully'}); //render data for ejs page
+      
+  });
 });
 
 });
